@@ -88,28 +88,28 @@ translate_comment <- function(comment="--------"){
   }
 }
 
-## transform column of comment codes into comments
-## THIS IS DPLYR COMPATABLE! :):):)
-
-
 #' Find a columns comments
 #'
 #' @param .data A data frame created by read_act
 #' @param ... One or more unquoted expressions seperated by commas.
 #' @return A data frame with a new column named commentText which has the text of the comments
 #'
-#' @example
+#' @examples
 #' df <- readACT(filepath, scores_only = F)
-#' df_with comments = find_comments(df)
+#' df_with comments <- find_comments(df)
 find_comments <- function(.data, ...){
   .data$commentText <- lapply(.data$essayComments, translate_comment)
   return(.data)
 }
 
-## UTCI
-# 0:Below Proficent, 1:Proficent,  2:Above Proficent, -: unable to caluclate
-GetUTCI <- function(textUTCI="-"){
-  switch(as.character(textUTCI),
+#' Convert Understanding Complex Text Indicator (UTCI) code to proficency level
+#'
+#' @param textUCTI the text of a UTCI code
+#' @return The Proficency level of UTCI
+#' @example
+#' get_UCTI("2")
+get_UCTI <- function(textUCTI="-"){
+  switch(as.character(textUCTI),
          "0" = return("Below Proficent"),
          "1" = return("Proficent"),
          "2" = return("Above Proficent"),
@@ -119,8 +119,20 @@ GetUTCI <- function(textUTCI="-"){
 }
 
 #Tranforms the column of  UTCI into text
-FindUTCI <- function(.data, ...){
-  .data$UTCIText <- lapply(test2$UCTI, GetUTCI)
+#' Transform the UCTI code to level
+#'
+#' @param .data A data frame created by read_ACT() with scores_only = F or another package function.
+#' @param ... One or more unquoted expressions seperated by commas.
+#' @return A data frame with a new column UCTIText
+#' @examples
+#' df <- readACT(filepath, scores_only = F)
+#' get_UCTI(df)
+#'
+#' df <- readACT(filepath, scores_only = F)
+#' df <- find_comments(df)
+#' df_with_UCTI <- get_UCTI(df)
+find_UCTI <- function(.data, ...){
+  .data$UCTIText <- lapply(test2$UCTI, get_UCTI)
   return(.data)
 }
 
