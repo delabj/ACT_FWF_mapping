@@ -137,7 +137,6 @@ find_UCTI <- function(.data, ...){
 
 
 
-# 0:Below Proficent, 1:Proficent,  2:Above Proficent, -: unable to caluclate
 #' Progress Toward Career Readiness Indicator (PTCRI) code translation
 #'
 #' @param textPTCRI The code for PTCRI level
@@ -168,14 +167,20 @@ get_PTCRI <- function(textPTCRI="-"){
 #'
 #' df <- readACT(filepath, scores_only = F)
 #' df <- find_comments(df)
-#' df_with_UCTI <- find_PTCRI(df)
+#' df_with_PTCRI <- find_PTCRI(df)
 find_PTCRI <- function(.data, ...){
   .data$PTCRIText <- lapply(.data$PTCRI, GetPTCRI)
   return(.data)
 }
 
-
-GetReligAffil <- function(textReligAffil="NA"){
+#' Religous affiliation code translation
+#'
+#' @param textReligAffil The code for religious affiliation
+#' @return A text value of the indicated religous affiliation
+#' @example
+#' get_ReligAffil("1")
+#' get_ReligAffil("30")
+get_relig_affil <- function(textReligAffil="NA"){
   df <- readRDS(file="~/ACTmapR/data/religAffiliation.rds")
 
   if(textReligAffil %in% df$Code){
@@ -187,8 +192,18 @@ GetReligAffil <- function(textReligAffil="NA"){
 
 }
 
-
-FindReligAffil <- function(.data, ...){
-  .data$religiousAffiliation <- lapply(.data$religiousAffiliation, GetReligAffil)
+#' Transform a column of Religious Affiliation codes into text
+#'
+#' @param .data A data frame created by read_ACT() with scores_only = F or another package function
+#' @param ... One or more unquoted expressions seperated by commas
+#' @return A data frame with a new column PTCRIText
+#' df <- readACT(filepath, scores_only = F)
+#' find_relig_affil(df)
+#'
+#' df <- readACT(filepath, scores_only = F)
+#' df <- find_comments(df)
+#' df_with_relig_affil <- find_relig_affil(df)
+find_relig_affil <- function(.data, ...){
+  .data$religiousAffiliation <- lapply(.data$religiousAffiliation, get_relig_affil)
   return(.data)
 }
