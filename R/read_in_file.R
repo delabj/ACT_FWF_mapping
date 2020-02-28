@@ -8,10 +8,8 @@
 #' @examples
 #'
 #' read_ACT(filepath, mapping="19-20")
-
-
 read_ACT<- function(file = "fileName", year="19-20", blanks=F, scores_only=T){
-  df <- GetMapping(year)
+  df <- get_mapping(year)
   if(!is.data.frame(df)){
     stop("Given Mapping isn't a dataframe. Have you entered the year correctly?")
   }
@@ -45,9 +43,7 @@ read_ACT<- function(file = "fileName", year="19-20", blanks=F, scores_only=T){
 #'
 #' @param year The school year for the mapping
 #' @return A data frame containing column names and widths
-
-
-GetMapping <- function(year="19-20"){
+get_mapping <- function(year="19-20"){
   switch(year,
          "18-19"= return(actMap18_19),  #sep2018-aug2019
          "19-20"= return(actMap19_20),  #sep2019-aug2020
