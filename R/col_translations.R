@@ -59,13 +59,12 @@ get_comment <- function(comment_code="--"){
   return(comment)
 }
 
-## Creates a string of comments based on the comment field
+#' Creates a string of comments based on the comment field
 #'
 #' @param comment An 8 character string consiting of 4 comment codes.
 #' @return A string of trasnlated comments.
-#' @example
-#'
-#'translate_comment("010233--"))
+#' @examples
+#'translate_comment("010233--")
 translate_comment <- function(comment="--------"){
   if(comment=="--------"){
     "No Essay Comments"
@@ -106,7 +105,7 @@ find_comments <- function(.data, ...){
 #'
 #' @param textUCTI the text of a UTCI code
 #' @return The Proficency level of UTCI
-#' @example
+#' @examples
 #' get_UCTI("2")
 get_UCTI <- function(textUCTI="-"){
   switch(as.character(textUCTI),
@@ -141,7 +140,7 @@ find_UCTI <- function(.data, ...){
 #'
 #' @param textPTCRI The code for PTCRI level
 #' @return A text value of the indicated National Career Readiness certificate Projection.
-#' @example
+#' @examples
 #' get_PRCRI("4")
 #' get_PRCRI("-")
 get_PTCRI <- function(textPTCRI="-"){
@@ -181,7 +180,8 @@ find_PTCRI <- function(.data, ...){
 #' get_ReligAffil("1")
 #' get_ReligAffil("30")
 get_relig_affil <- function(textReligAffil="NA"){
-  df <- readRDS(file="~/ACTmapR/data/religAffiliation.rds")
+  df <- readRDS(file=system.file("data",
+                "religAffiliation.rds", package = "ACTmapping"))
 
   if(textReligAffil %in% df$Code){
     return(df$Response[df$Code==textReligAffil])

@@ -23,5 +23,5 @@ Read in the ACT fixed width file
 }
 \examples{
 
-read_ACT(filepath, mapping="19-20")
+#read_ACT(filepath, mapping = "19-20")
 }

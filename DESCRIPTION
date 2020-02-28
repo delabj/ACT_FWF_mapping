@@ -1,6 +1,6 @@
 Package: ACTmapping
 Type: Package
-Title: Read the FWF provided by the ACT for test scores.
+Title: Read the FWF provided by the ACT for test scores
 Version: 0.1.0
 Author: Joshua de la Bruere
 Maintainer: Joshua de la Bruere <yourself@somewhere.net>
