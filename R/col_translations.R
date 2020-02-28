@@ -52,17 +52,16 @@ get_comment <- function(comment_code="--"){
          "64" = "Using more sentence variety and precise word choice would make your essay clearer and more engaging.",
          "65" = "Some varied sentences structures and precise word choice added clarity and interest to your writing.",
          "66" = "Your essay showed a good command of language by using varied sentences and precise word choice.",
-         TRUE = "NA"
+         "NA"
          )
-
-
 
 
   return(comment)
 }
 
 ## creates a string of comments based on the comment field
-TranslateComment <- function(comment="--------"){
+#'
+translate_comment <- function(comment="--------"){
   if(comment=="--------"){
     "No Essay Comments"
   }
@@ -71,7 +70,14 @@ TranslateComment <- function(comment="--------"){
     for(i in 1:4){
       stop <- i*2
       start <-  stop-1
-      comments <- paste(comments, get_comment(substr(comment, start, stop)))
+      if(i == 1){
+        comments <-get_comment(substr(comment, start, stop))
+
+      }
+      else{
+        comments <- paste(comments, get_comment(substr(comment, start, stop)), sep = "  ")
+
+      }
     }
     return(comments)
   }
