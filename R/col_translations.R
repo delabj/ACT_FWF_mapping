@@ -59,8 +59,13 @@ get_comment <- function(comment_code="--"){
   return(comment)
 }
 
-## creates a string of comments based on the comment field
+## Creates a string of comments based on the comment field
 #'
+#' @param comment An 8 character string consiting of 4 comment codes.
+#' @return A string of trasnlated comments.
+#' @example
+#'
+#'translate_comment("010233--"))
 translate_comment <- function(comment="--------"){
   if(comment=="--------"){
     "No Essay Comments"
@@ -85,8 +90,19 @@ translate_comment <- function(comment="--------"){
 
 ## transform column of comment codes into comments
 ## THIS IS DPLYR COMPATABLE! :):):)
-FindComments <- function(.data, ...){
-  .data$commentText <- lapply(.data$essayComments, TranslateComment)
+
+
+#' Find a columns comments
+#'
+#' @param .data A data frame created by read_act
+#' @param ... One or more unquoted expressions seperated by commas.
+#' @return A data frame with a new column named commentText which has the text of the comments
+#'
+#' @example
+#' df <- readACT(filepath, scores_only = F)
+#' df_with comments = find_comments(df)
+find_comments <- function(.data, ...){
+  .data$commentText <- lapply(.data$essayComments, translate_comment)
   return(.data)
 }
 
