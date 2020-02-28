@@ -20,12 +20,12 @@ read_ACT<- function(file = "fileName", year="19-20", blanks=F, scores_only=T){
   if(blanks){return(temp)}
   #if not  removes the columns named blank
   temp %>%
-    select(-(starts_with("blank")))->temp
+    dplyr::select(-(dplyr::starts_with("blank")))->temp
 
   #only grab student names and scores
   if(scores_only){
     temp %>%
-      select(lastName, firstName, dateOfBirth, stateID, testDate,
+      dplyr::select(lastName, firstName, dateOfBirth, stateID, testDate,
              "composite"= scaleComposite,
              "english" = scaleEnglish,
              "mathmatics"=scaleMath,
