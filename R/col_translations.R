@@ -118,19 +118,18 @@ get_UCTI <- function(textUCTI="-"){
   )
 }
 
-#Tranforms the column of  UTCI into text
 #' Transform the UCTI code to level
 #'
-#' @param .data A data frame created by read_ACT() with scores_only = F or another package function.
-#' @param ... One or more unquoted expressions seperated by commas.
+#' @param .data A data frame created by read_ACT() with scores_only = F or another package function
+#' @param ... One or more unquoted expressions seperated by commas
 #' @return A data frame with a new column UCTIText
 #' @examples
 #' df <- readACT(filepath, scores_only = F)
-#' get_UCTI(df)
+#' find_UCTI(df)
 #'
 #' df <- readACT(filepath, scores_only = F)
 #' df <- find_comments(df)
-#' df_with_UCTI <- get_UCTI(df)
+#' df_with_UCTI <- find_UCTI(df)
 find_UCTI <- function(.data, ...){
   .data$UCTIText <- lapply(test2$UCTI, get_UCTI)
   return(.data)
@@ -138,9 +137,15 @@ find_UCTI <- function(.data, ...){
 
 
 
-## PTCRI
 # 0:Below Proficent, 1:Proficent,  2:Above Proficent, -: unable to caluclate
-GetPTCRI <- function(textPTCRI="-"){
+#' Progress Toward Career Readiness Indicator (PTCRI) code translation
+#'
+#' @param textPTCRI The code for PTCRI level
+#' @return A text value of the indicated National Career Readiness certificate Projection.
+#' @example
+#' get_PRCRI("4")
+#' get_PRCRI("-")
+get_PTCRI <- function(textPTCRI="-"){
   switch(as.character(textPTCRI),
          "0" = return("= Unlikely to obtain an NCRC"),
          "1" = return("Likely to obtain a Bronze level NCRC"),
@@ -153,18 +158,20 @@ GetPTCRI <- function(textPTCRI="-"){
 }
 
 #Tranforms the column of  PTCRI into text
-FindPTCRI <- function(.data, ...){
+#' Transform a column of PTCRI codes into text
+#'
+#' @param .data A data frame created by read_ACT() with scores_only = F or another package function
+#' @param ... One or more unquoted expressions seperated by commas
+#' @return A data frame with a new column PTCRIText
+#' df <- readACT(filepath, scores_only = F)
+#' find_PTCRI(df)
+#'
+#' df <- readACT(filepath, scores_only = F)
+#' df <- find_comments(df)
+#' df_with_UCTI <- find_PTCRI(df)
+find_PTCRI <- function(.data, ...){
   .data$PTCRIText <- lapply(.data$PTCRI, GetPTCRI)
   return(.data)
-}
-
-runMapR <- function(){
-  appDir <- system.file("shinyapps","ShinyMapR", package = "ACTmapR")
-  if (appDir == "") {
-    stop("Could not find example directory. Try re-installing `ACTmapR`.", call. = FALSE)
-  }
-
-  shiny::runApp(appDir, display.mode = "normal")
 }
 
 
@@ -181,7 +188,7 @@ GetReligAffil <- function(textReligAffil="NA"){
 }
 
 
-FindUTCI <- function(.data, ...){
+FindReligAffil <- function(.data, ...){
   .data$religiousAffiliation <- lapply(.data$religiousAffiliation, GetReligAffil)
   return(.data)
 }
