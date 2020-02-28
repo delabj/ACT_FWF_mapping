@@ -15,7 +15,7 @@ read_ACT<- function(file = "fileName", year="19-20", blanks=F, scores_only=T){
   }
 
   #reads in the file
-  temp <- read.fwf(file=file, widths = df$widthsACT, col.names = df$namesACT)
+  temp <- read.fwf(file=file, widths = df$widthsACT, col.names = df$namesACT, comment.char="")
   # checks to see if blank columns are needed
   if(blanks){return(temp)}
   #if not  removes the columns named blank
